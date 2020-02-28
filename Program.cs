@@ -296,86 +296,90 @@ namespace Rocket_Elevators_Controllers
         // Column Methods
         public Elevator findElevator(int reqFloor, string reqDirection)
         {
-            elevatorScores = new List<Elevator>();
             int bestScore = 999;
+            Elevator bestElevator = this.elevators[0];
 
-            Elevator bestElevator = null;
             // Determine elevator position
-            foreach (var elevator in elevators)
+            foreach (var elevator in this.elevators)
             {
-                elevator.score = elevator.currentFloor - reqFloor;
-                elevatorScores.Add(elevator);
-
-                // int tmpScore = elevator.currentFloor - reqFloor;
-
-                // // var score = elevator.currentFloor - reqFloor;
-
-                // // If floors are the same
-                // if (elevator.currentFloor == reqFloor & reqDirection == elevator.currentDirection)
-                // {
-                //     System.Console.WriteLine("Console log");
-                //     System.Console.WriteLine(elevator.elev_Id);
-                //     if (tmpScore < bestScore)
-                //     {
-                //         bestElevator = elevator;
-                //     }
-                // }
-                // // If elevator is above floor requesting elevator & going down
-                // else if (elevator.currentFloor > reqFloor & elevator.currentDirection == "down" & reqDirection == "down")
-                // {
-                //     System.Console.WriteLine("Console log1");
-                //     System.Console.WriteLine(elevator.elev_Id);
-                //     if (tmpScore < bestScore)
-                //     {
-                //         bestElevator = elevator;
-                //     }
-
-                // }
-                // // If elevator is above floor requested elevator & going up
-                // else if (elevator.currentFloor > reqFloor & elevator.currentDirection == "up" & reqDirection == "up")
-                // {
-                //     System.Console.WriteLine("Console log2");
-                //     System.Console.WriteLine(elevator.elev_Id);
-                //     if (tmpScore < bestScore)
-                //     {
-                //         bestElevator = elevator;
-                //     }
-                // }
-                // // If elevator is below floor requested & going up
-                // else if (elevator.currentFloor < reqFloor) // & elevator.currentDirection == "up" & reqDirection == "up")
-                // {
-                //     System.Console.WriteLine("Console log3");
-                //     System.Console.WriteLine(elevator.elev_Id);
-                //     if (tmpScore < bestScore)
-                //     {
-                //         bestElevator = elevator;
-                //     }
-                // }
-                //  // If elevator is below floor requested elevator & going down
-                // else if (elevator.currentFloor < reqFloor & elevator.currentDirection == "up" & reqDirection == "up")
-                // {
-                //     System.Console.WriteLine("Console log4");
-                //     System.Console.WriteLine(elevator.elev_Id);
-                //     if (tmpScore < bestScore)
-                //     {
-                //         bestElevator = elevator;
-                //     }
-                // }
-            }
-
-            Elevator bestElev = elevatorScores[0];
-            foreach (Elevator elevator in elevatorScores)
-            {
-                System.Console.WriteLine(elevator.elev_Id + " has score of " + elevator.score);
-                if (bestElev.score > elevator.score)
+                // If floors are the same
+                if (elevator.currentFloor == reqFloor & reqDirection == elevator.currentDirection)
                 {
-                    bestElev = elevator;
+                    if (bestScore > 1) {
+                        bestElevator = elevator;
+                        bestScore = 1;
+                    } else if (bestScore == 1) {
+                        int bestElevatorGap = Math.Abs(bestElevator.currentFloor - reqFloor);
+                        int newElevatorGap = Math.Abs(elevator.currentFloor - reqFloor);
+                        
+                        if(newElevatorGap < bestElevatorGap){
+                            bestElevator = elevator;
+                        }
+                    }
+                }
+                // If elevator is above floor requesting elevator & going down
+                else if (elevator.currentFloor > reqFloor & elevator.currentDirection == "down" & reqDirection == "down")
+                {
+                    if (bestScore > 2) {
+                        bestElevator = elevator;
+                        bestScore = 2;
+                    } else if(bestScore == 2) {
+                        int bestElevatorGap = Math.Abs(bestElevator.currentFloor - reqFloor);
+                        int newElevatorGap = Math.Abs(elevator.currentFloor - reqFloor);
+                        
+                        if(newElevatorGap < bestElevatorGap){
+                            bestElevator = elevator;
+                        }
+                    }
+                }
+                // If elevator is above floor requested elevator & going up
+                else if (elevator.currentFloor > reqFloor & elevator.currentDirection == "up" & reqDirection == "up")
+                {
+                   if (bestScore > 3) {
+                        bestElevator = elevator;
+                        bestScore = 3;
+                    } else if (bestScore == 3) {
+                        int bestElevatorGap = Math.Abs(bestElevator.currentFloor - reqFloor);
+                        int newElevatorGap = Math.Abs(elevator.currentFloor - reqFloor);
+                        
+                        if(newElevatorGap < bestElevatorGap){
+                            bestElevator = elevator;
+                        }
+                    }
+                }
+                // If elevator is below floor requested & going up
+                else if (elevator.currentFloor < reqFloor) // & elevator.currentDirection == "up" & reqDirection == "up")
+                {
+                    if (bestScore > 4) {
+                        bestElevator = elevator;
+                        bestScore = 4;
+                    } else if (bestScore == 4) {
+                        int bestElevatorGap = Math.Abs(bestElevator.currentFloor - reqFloor);
+                        int newElevatorGap = Math.Abs(elevator.currentFloor - reqFloor);
+                        
+                        if(newElevatorGap < bestElevatorGap){
+                            bestElevator = elevator;
+                        }
+                    }
+                }
+                 // If elevator is below floor requested elevator & going down
+                else if (elevator.currentFloor < reqFloor & elevator.currentDirection == "up" & reqDirection == "up")
+                {
+                    if (bestScore > 5) {
+                        bestElevator = elevator;
+                        bestScore = 5;
+                    } else if (bestScore == 5) {
+                        int bestElevatorGap = Math.Abs(bestElevator.currentFloor - reqFloor);
+                        int newElevatorGap = Math.Abs(elevator.currentFloor - reqFloor);
+                        
+                        if(newElevatorGap < bestElevatorGap){
+                            bestElevator = elevator;
+                        }
+                    }
                 }
             }
-
-            System.Console.WriteLine(bestElev.elev_Id + " is being sent");
             Console.WriteLine("___________________________________________________");
-            return bestElev;
+            return bestElevator;
         }
     }
 
