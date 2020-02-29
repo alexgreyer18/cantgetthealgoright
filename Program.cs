@@ -428,7 +428,6 @@ namespace Rocket_Elevators_Controllers
                 while (this.currentFloor != 0)
                 {
                     System.Console.WriteLine("I am " + this.elev_Id + " and I'm on floor " + this.currentFloor);
-                    System.Console.WriteLine(this.currentFloor + "Hi sandrine :)");
                     this.currentFloor++;
                 }
             }
@@ -439,7 +438,6 @@ namespace Rocket_Elevators_Controllers
                     while (this.currentFloor != 0)
                     {
                         System.Console.WriteLine("I am " + this.elev_Id + " and I'm on floor " + this.currentFloor);
-                        System.Console.WriteLine(this.currentFloor + "Hi sandrine :)");
                         this.currentFloor--;
                     }
                     System.Console.WriteLine("I am " + this.elev_Id + " and I'm on floor " + this.currentFloor);
